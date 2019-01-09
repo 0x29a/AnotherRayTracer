@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdbool.h>
+
 
 typedef struct vector {
     double x, y, z;
@@ -9,11 +11,10 @@ typedef struct sphere {
     Vector origin;
 } Sphere;
 
-Sphere sphere = {
-    10,
-    {5, 5, 5} 
-};
-
+typedef struct ray {
+    Vector start;
+    Vector direction;
+} Ray;
 
 double vectorDotProduct(Vector *first, Vector *second) {
     return first->x*second->x + first->y*second->y + first->z*second->z;
@@ -31,14 +32,46 @@ Vector vectorAddition(Vector *first, Vector *second) {
     };
 }
 
+bool isRayIntersectsSphere(Ray *ray, Sphere *sphere) {
+    double A = vectorDotProduct(&(ray->direction), &(ray->direction));
+    printf("A %lf\n", A);
 
+
+    Vector distance = vectorSubstraction(&(ray->start), &(sphere->origin));
+
+    printf("DISTANCE %lf %lf %lf\n", distance.x, distance.y, distance.z);
+
+    double B = 2 * vectorDotProduct(&(ray->direction), &distance);
+
+    printf("B %lf\n", B);
+
+    double C = vectorDotProduct(&distance, &distance) - sphere->radius * sphere-> radius;
+
+    printf("C %lf\n", C);
+
+    double discriminant = B * B - 4 * A * C;
+
+    printf("Discr %lf\n", discriminant);
+
+    if (discriminant < 0)
+        return false;
+    else
+        return true;
+}
 
 int main() {
-    double product = vectorDotProduct(&sphere.origin, &sphere.origin);
-    Vector sum = vectorAddition(&sphere.origin, &sphere.origin);
-    Vector sub = vectorSubstraction(&sphere.origin, &sphere.origin);
-    printf("%lf\n", product);
+    Ray ray = {
+        {0, 0, 0},
+        {0, 9, 1},
+    };
 
-    printf("%lf %lf\n", sum.z, sub.z);
+    Sphere sphere = {
+        3,
+        {0, 9, 5}
+    };
+
+    bool YAY = isRayIntersectsSphere(&ray, &sphere);
+    printf("%d", (int) YAY);
+
     return 1;
 }
