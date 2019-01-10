@@ -34,24 +34,14 @@ Vector vectorAddition(Vector *first, Vector *second) {
 
 bool isRayIntersectsSphere(Ray *ray, Sphere *sphere) {
     double A = vectorDotProduct(&(ray->direction), &(ray->direction));
-    printf("A %lf\n", A);
-
 
     Vector distance = vectorSubstraction(&(ray->start), &(sphere->origin));
 
-    printf("DISTANCE %lf %lf %lf\n", distance.x, distance.y, distance.z);
-
     double B = 2 * vectorDotProduct(&(ray->direction), &distance);
-
-    printf("B %lf\n", B);
 
     double C = vectorDotProduct(&distance, &distance) - sphere->radius * sphere-> radius;
 
-    printf("C %lf\n", C);
-
     double discriminant = B * B - 4 * A * C;
-
-    printf("Discr %lf\n", discriminant);
 
     if (discriminant < 0)
         return false;
@@ -62,16 +52,27 @@ bool isRayIntersectsSphere(Ray *ray, Sphere *sphere) {
 int main() {
     Ray ray = {
         {0, 0, 0},
-        {0, 9, 1},
+        {0, 0, 1},
     };
 
     Sphere sphere = {
-        3,
-        {0, 9, 5}
+        10,
+        {20, 20, 20}
     };
 
-    bool YAY = isRayIntersectsSphere(&ray, &sphere);
-    printf("%d", (int) YAY);
+    for (int y=0; y<40; y++) {
+        ray.start.y = y;
+        for (int x=0; x<40; x++) {
+            ray.start.x = x;
 
+            if (isRayIntersectsSphere(&ray, &sphere)) {
+                printf("++");
+            }
+            else {
+                printf("--");
+            }
+        }
+        printf("\n");
+    }
     return 1;
 }
