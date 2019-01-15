@@ -18,6 +18,12 @@ Vector vectorAddition(Vector *first, Vector *second) {
     };
 }
 
+Vector vectorScale(double factor, Vector *vector) {
+    return (Vector) {
+        vector->x * factor, vector->y * factor, vector->z * factor
+    };
+}
+
 bool isRayIntersectsSphere(Ray *ray, Sphere *sphere) {
     double A = vectorDotProduct(&(ray->direction), &(ray->direction));
 
