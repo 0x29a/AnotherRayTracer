@@ -1,0 +1,1 @@
+void saveppm(char *, unsigned char *, unsigned int, unsigned int);

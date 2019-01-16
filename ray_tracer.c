@@ -1,13 +1,5 @@
-#include <stdio.h>
-
 #include "vector_operations.h"
-
-void saveppm(char * filename, unsigned char * image, unsigned int width, unsigned int height) {
-    FILE * imageFile = fopen(filename, "wb");
-    fprintf(imageFile, "P6 %d %d %d\n", width, height, 255);
-    fwrite(image, 3, width * height, imageFile);
-    fclose(imageFile);
-}
+#include "utils.h"
 
 int main() {
     Ray ray = {
@@ -30,7 +22,8 @@ int main() {
         ray.start.y = y;
         for (int x=0; x<400; x++) {
             ray.start.x = x;
-            image[counter] = (isRayIntersectsSphere(&ray, &sphere)) ? 255: 0;
+            double temp = 200000.0;
+            image[counter] = (isRayIntersectsSphere(&ray, &sphere, &temp)) ? 255: 0;
             image[counter + 1] = 0;
             image[counter + 2] = 0;
             counter += 3;

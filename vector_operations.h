@@ -10,4 +10,4 @@ Vector vectorAddition(Vector *, Vector *);
 
 Vector vectorScale(double, Vector *);
 
-bool isRayIntersectsSphere(Ray *, Sphere *);
+bool isRayIntersectsSphere(Ray *, Sphere *, double *);

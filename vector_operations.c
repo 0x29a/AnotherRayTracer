@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <math.h>
 
 #include "structures.h"
 
@@ -24,7 +25,9 @@ Vector vectorScale(double factor, Vector *vector) {
     };
 }
 
-bool isRayIntersectsSphere(Ray *ray, Sphere *sphere) {
+bool isRayIntersectsSphere(Ray *ray, Sphere *sphere, double * root) {
+    bool intersects;
+
     double A = vectorDotProduct(&(ray->direction), &(ray->direction));
 
     Vector distance = vectorSubstraction(&(ray->start), &(sphere->origin));
@@ -36,7 +39,21 @@ bool isRayIntersectsSphere(Ray *ray, Sphere *sphere) {
     double discriminant = B * B - 4 * A * C;
 
     if (discriminant < 0)
-        return false;
-    else
-        return true;
+        intersects = false;
+    else {
+        double sqrtDiscr = sqrt(discriminant);
+        double firstRoot = (-B - sqrtDiscr / 2 * A);
+        double secondRoot = (-B + sqrtDiscr / 2 * A);
+
+        if (firstRoot > secondRoot)
+            firstRoot = secondRoot;
+
+        if ((firstRoot > 0.001f) && (firstRoot < *root)) {
+            *root = firstRoot;
+            intersects = true;
+        } else
+            intersects = false;
+    }
+
+    return intersects;
 }
