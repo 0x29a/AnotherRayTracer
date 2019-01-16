@@ -8,8 +8,9 @@ typedef struct vector {
 } Vector;
 
 typedef struct sphere {
-    double radius;
     Vector origin;
+    double radius;
+    int material;
 } Sphere;
 
 typedef struct ray {
@@ -18,12 +19,12 @@ typedef struct ray {
 } Ray;
 
 typedef struct colour {
-    float red, green, blue;
+    double red, green, blue;
 } Colour;
 
 typedef struct material {
     Colour diffusion;
-    float reflection;
+    double reflection;
 } Material;
 
 typedef struct light {
