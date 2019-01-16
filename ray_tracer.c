@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdio.h>
 
 #include "vector_operations.h"
 #include "utils.h"
