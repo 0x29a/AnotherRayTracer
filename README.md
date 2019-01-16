@@ -2,7 +2,7 @@
 
 ## How to run
 
-sh```
+```sh
 make ray_tracer
 ./ray_tracer
 ```
