@@ -17,4 +17,18 @@ typedef struct ray {
     Vector direction;
 } Ray;
 
+typedef struct colour {
+    float red, green, blue;
+} Colour;
+
+typedef struct material {
+    Colour diffusion;
+    float reflection;
+} Material;
+
+typedef struct light {
+    Vector position;
+    Colour intensity;
+} Light;
+
 #endif /* STRUCTURES_H */
