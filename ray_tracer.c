@@ -39,7 +39,7 @@ int main() {
             1
         },
         {
-            {200, 300, 0},
+            {500, 140, 0},
             100,
             2
         }
@@ -80,7 +80,7 @@ int main() {
             ray.direction.z = 1;
 
             do {
-                double root = 20000.0f;
+                double root = 20000.0;
                 int currentSphere = -1;
 
                 unsigned int i;
@@ -95,26 +95,24 @@ int main() {
                 Vector newStart = vectorAddition(&ray.start, &scaled);
 
                 // Find normal for this point of ray and sphere intersection
-                Vector normal = vectorSubstraction(&newStart, &spheres[i].origin);
+                Vector normal = vectorSubstraction(&newStart, &spheres[currentSphere].origin);
                 double temp = vectorDotProduct(&normal, &normal);
                 if (temp == 0)
                     break;
-                temp = 1.0f / sqrtf(temp);
+                temp = 1.0 / sqrtf(temp);
                 normal = vectorScale(temp, &normal);
-
 
                 // Find material to determine the color
                 Material currentMaterial = materials[spheres[currentSphere].material];
-
 
                 // Find the value of light at this point
                 unsigned int j;
 				for(j=0; j < 3; j++){
 					Light currentLight = lights[j];
 					Vector distance = vectorSubstraction(&currentLight.position, &newStart);
-					if(vectorDotProduct(&normal, &distance) <= 0.0f) continue;
+					if(vectorDotProduct(&normal, &distance) <= 0.0) continue;
 					double t = sqrtf(vectorDotProduct(&distance, &distance));
-					if(t <= 0.0f) continue;
+					if(t <= 0.0) continue;
 
 					Ray lightRay;
 					lightRay.start = newStart;
@@ -132,19 +130,17 @@ int main() {
 
 				// The reflected ray start and direction
 				ray.start = newStart;
-				double reflect = 2.0f * vectorDotProduct(&ray.direction, &normal);
+				double reflect = 2.0 * vectorDotProduct(&ray.direction, &normal);
 				Vector tmp = vectorScale(reflect, &normal);
 				ray.direction = vectorSubstraction(&ray.direction, &tmp);
 
 				level++;
             }
-            while ((coef > 0.01f) && (level < 15));
+            while ((coef > 0.00) && (level < 15));
 
-            printf("%lf %lf %lf", red, green, blue);
-
-            image[(x + y * IMAGE_WIDTH) * 3 + 0] = (unsigned char) min(red * 255.0f, 255.0f);
-			image[(x + y * IMAGE_WIDTH) * 3 + 1] = (unsigned char) min(green * 255.0f, 255.0f);
-			image[(x + y * IMAGE_WIDTH) * 3 + 2] = (unsigned char) min(blue * 255.0f, 255.0f);
+            image[(x + y * IMAGE_WIDTH) * 3 + 0] = (unsigned char) min(red * 255.0, 255.0);
+			image[(x + y * IMAGE_WIDTH) * 3 + 1] = (unsigned char) min(green * 255.0, 255.0);
+			image[(x + y * IMAGE_WIDTH) * 3 + 2] = (unsigned char) min(blue * 255.0, 255.0);
         }
     }
 
