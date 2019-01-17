@@ -41,9 +41,9 @@ bool isRayIntersectsSphere(Ray *ray, Sphere *sphere, double * root) {
     if (discriminant < 0)
         intersects = false;
     else {
-        double sqrtDiscr = sqrt(discriminant);
-        double firstRoot = (-B - sqrtDiscr / 2 * A);
-        double secondRoot = (-B + sqrtDiscr / 2 * A);
+        double sqrtDiscr = sqrtf(discriminant);
+        double firstRoot = (-B - sqrtDiscr) / (2 * A);
+        double secondRoot = (-B + sqrtDiscr) / (2 * A);
 
         if (firstRoot > secondRoot)
             firstRoot = secondRoot;
