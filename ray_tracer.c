@@ -107,40 +107,40 @@ int main() {
 
                 // Find the value of light at this point
                 unsigned int j;
-				for(j=0; j < 3; j++){
-					Light currentLight = lights[j];
-					Vector distance = vectorSubstraction(&currentLight.position, &newStart);
-					if(vectorDotProduct(&normal, &distance) <= 0.0) continue;
-					double t = sqrtf(vectorDotProduct(&distance, &distance));
-					if(t <= 0.0) continue;
+                for(j=0; j < 3; j++){
+                    Light currentLight = lights[j];
+                    Vector distance = vectorSubstraction(&currentLight.position, &newStart);
+                    if(vectorDotProduct(&normal, &distance) <= 0.0) continue;
+                    double t = sqrtf(vectorDotProduct(&distance, &distance));
+                    if(t <= 0.0) continue;
 
-					Ray lightRay;
-					lightRay.start = newStart;
-					lightRay.direction = vectorScale((1/t), &distance);
+                    Ray lightRay;
+                    lightRay.start = newStart;
+                    lightRay.direction = vectorScale((1/t), &distance);
 
-					// Lambert diffusion
-					double lambert = vectorDotProduct(&lightRay.direction, &normal) * coef; 
-					red += lambert * currentLight.intensity.red * currentMaterial.diffusion.red;
-					green += lambert * currentLight.intensity.green * currentMaterial.diffusion.green;
-					blue += lambert * currentLight.intensity.blue * currentMaterial.diffusion.blue;
-				}
+                    // Lambert diffusion
+                    double lambert = vectorDotProduct(&lightRay.direction, &normal) * coef; 
+                    red += lambert * currentLight.intensity.red * currentMaterial.diffusion.red;
+                    green += lambert * currentLight.intensity.green * currentMaterial.diffusion.green;
+                    blue += lambert * currentLight.intensity.blue * currentMaterial.diffusion.blue;
+                }
 
-				// Iterate over the reflection
-				coef *= currentMaterial.reflection;
+                // Iterate over the reflection
+                coef *= currentMaterial.reflection;
 
-				// The reflected ray start and direction
-				ray.start = newStart;
-				double reflect = 2.0 * vectorDotProduct(&ray.direction, &normal);
-				Vector tmp = vectorScale(reflect, &normal);
-				ray.direction = vectorSubstraction(&ray.direction, &tmp);
+                // The reflected ray start and direction
+                ray.start = newStart;
+                double reflect = 2.0 * vectorDotProduct(&ray.direction, &normal);
+                Vector tmp = vectorScale(reflect, &normal);
+                ray.direction = vectorSubstraction(&ray.direction, &tmp);
 
-				level++;
+                level++;
             }
             while ((coef > 0.00) && (level < 15));
 
             image[(x + y * IMAGE_WIDTH) * 3 + 0] = (unsigned char) min(red * 255.0, 255.0);
-			image[(x + y * IMAGE_WIDTH) * 3 + 1] = (unsigned char) min(green * 255.0, 255.0);
-			image[(x + y * IMAGE_WIDTH) * 3 + 2] = (unsigned char) min(blue * 255.0, 255.0);
+            image[(x + y * IMAGE_WIDTH) * 3 + 1] = (unsigned char) min(green * 255.0, 255.0);
+            image[(x + y * IMAGE_WIDTH) * 3 + 2] = (unsigned char) min(blue * 255.0, 255.0);
         }
     }
 
