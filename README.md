@@ -25,6 +25,6 @@ make ray_tracer
 4. Add `.obj` files support (with textures).
 5. Add background support.
 6. Antialiasing and all advanced things.
-7. Rendering in multiple threads???
-8. GPU-based rendering??????
-9. RENDERING ON GPU CLUSTER (with nodes communication through http)???????????
+7. Rendering in multiple threads.
+8. GPU-based rendering.
+9. Probably rendering on gpu cluster.
