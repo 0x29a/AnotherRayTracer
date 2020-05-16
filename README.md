@@ -1,4 +1,4 @@
-# Another ray tracer written on C.
+# Another ray tracer written in C.
 
 ![Generated picture example](/examples/picture.png)
 
